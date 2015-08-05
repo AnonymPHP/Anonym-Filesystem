@@ -8,6 +8,7 @@
      */
 
     namespace Anonym\Components\Filesystem;
+    use InvalidArgumentException;
 
     /**
      * Class Filesystem
@@ -35,8 +36,28 @@
         public function __construct($driver = '')
         {
 
+            $this->selectDriver($driver);
         }
 
+        /**
+         * Driver seçme işlemini yapra
+         *
+         * @param string $driver
+         * @throws InvalidArgumentException
+         */
+        public function selectDriver($driver = '')
+        {
+
+            if (!is_string($driver)) {
+                throw new InvalidArgumentException('SÜrücü isi string olmalıdır');
+            }
+
+            if ('' === $driver) {
+                throw new InvalidArgumentException('Sürücü ismi boş olamaz');
+            }
+
+            $driverList = $this->getDriverList();
+        }
         /**
          * @return DriverInterface
          */
@@ -49,7 +70,7 @@
          * @param DriverInterface $driver
          * @return Filesystem
          */
-        public function setDriver($driver)
+        public function setDriver(DriverInterface $driver)
         {
             $this->driver = $driver;
 
