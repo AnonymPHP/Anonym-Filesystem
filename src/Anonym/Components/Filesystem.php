@@ -44,6 +44,7 @@
          *
          * @param string $driver
          * @throws InvalidArgumentException
+         * @return bool
          */
         public function selectDriver($driver = '')
         {
@@ -57,6 +58,12 @@
             }
 
             $driverList = $this->getDriverList();
+            if (isset($driverList[$driver])) {
+                $driver = $driverList[$driver];
+
+            }else{
+
+            }
         }
         /**
          * @return DriverInterface
