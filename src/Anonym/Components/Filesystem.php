@@ -14,6 +14,6 @@
      * @package Anonym\Components\Filesystem
      */
     class Filesystem
-    W{
+    {
 
     }
