@@ -8,6 +8,7 @@
      */
 
     namespace Anonym\Components\Filesystem;
+    use Anonym\Components\Filesystem\Exceptions\DriverNotFoundException;
     use InvalidArgumentException;
 
     /**
@@ -62,7 +63,7 @@
                 $driver = $driverList[$driver];
 
             }else{
-
+                throw new DriverNotFoundException(sprintf('%s isminde bir sürücü bulunamadı', $driver));
             }
         }
         /**
