@@ -16,6 +16,19 @@
     interface DriverInterface
     {
 
+        /**
+         * Sınıfı başlatır ve gerekli işlemleri çağırır
+         *
+         * @return mixed
+         */
 
+        public function boot();
+
+        /**
+         * Sürücünün kullanılabilir olup olmadığına bakar
+         *
+         * @return bool
+         */
+        public function check();
 
     }
