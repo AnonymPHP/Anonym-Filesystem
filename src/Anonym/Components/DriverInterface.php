@@ -10,10 +10,12 @@
     namespace Anonym\Components\Filesystem;
 
     /**
-     * Class DriverInterface
+     * Interface DriverInterface
      * @package Anonym\Components\Filesystem
      */
-    class DriverInterface
+    interface DriverInterface
     {
+
+
 
     }
