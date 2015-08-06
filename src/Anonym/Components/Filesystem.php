@@ -61,8 +61,13 @@
             if (isset($driverList[$driver])) {
                 $driver = $driverList[$driver];
                 if($driver instanceof DriverInterface && $driver instanceof Driver){
-                  $this->setDriver($driver);
-                    return $this;
+
+                    if ($driver->check()) {
+                        $this->setDriver($driver);
+                        return $this;
+                    }else{
+
+                    }
                 }else{
                     throw new DriverIsNotReallyDriver(sprintf('%s sınıfınız gerçek bir sürücü değil', get_class($driver)));
                 }

@@ -1,20 +1,20 @@
 <?php
 /**
- * Bu Dosya AnonymFramework'e ait bir dosyadýr.
- *
- * @author vahitserifsaglam <vahit.serif119@gmail.com>
- * @see http://gemframework.com
- *
+ * Created by PhpStorm.
+ * User: va
+ * Date: 07.08.2015
+ * Time: 00:02
  */
 
 namespace Anonym\Components\Filesystem;
 
 /**
- * Class Driver
+ * Class DiskDriver
  * @package Anonym\Components\Filesystem
  */
-abstract class Driver
+class DiskDriver extends Driver implements DriverInterface
 {
+
 
     /**
      * Dosyanýn olup olmadýðýný kontrol eder
@@ -22,7 +22,9 @@ abstract class Driver
      * @param string $name
      * @return mixed
      */
-    abstract public function exists($name = '');
+    public function exists($name = '')
+    {
+    }
 
     /**
      * Dosyanýn içeriðini okur
@@ -30,7 +32,10 @@ abstract class Driver
      * @param string $name
      * @return mixed
      */
-    abstract public function read($name = '');
+    public function read($name = '')
+    {
+
+    }
 
     /**
      * Dosyanýn içeriðinin sonuna veri eklemesi yapar
@@ -39,8 +44,10 @@ abstract class Driver
      * @param string $text
      * @return mixed
      */
-    abstract public function append($name = '', $text = '');
+    public function append($name = '', $text = '')
+    {
 
+    }
 
     /**
      * Dosyanýn içeriðinin baþýna veri ekler
@@ -49,7 +56,10 @@ abstract class Driver
      * @param string $text
      * @return mixed
      */
-    abstract public function prepend($name = '', $text = '');
+    public function prepend($name = '', $text = '')
+    {
+
+    }
 
     /**
      * Dosyanýn içeriðini tamamen deðiþtirir
@@ -58,7 +68,10 @@ abstract class Driver
      * @param string $text
      * @return mixed
      */
-    abstract public function write($name = '', $text = '');
+    public function write($name = '', $text = '')
+    {
+
+    }
 
     /**
      * Dosyayý siler
@@ -66,8 +79,10 @@ abstract class Driver
      * @param string $name
      * @return mixed
      */
-    abstract public function delete($name = '');
+    public function delete($name = '')
+    {
 
+    }
 
     /**
      * Klasörü siler
@@ -75,8 +90,10 @@ abstract class Driver
      * @param string $name
      * @return mixed
      */
-    abstract public function deleteDir($name = '');
+    public function deleteDir($name = '')
+    {
 
+    }
 
     /**
      * Dosyayý kopyalar
@@ -85,5 +102,28 @@ abstract class Driver
      * @param string $dest
      * @return mixed
      */
-    abstract public function move($src = '', $dest = '');
+    public function move($src = '', $dest = '')
+    {
+
+    }
+
+    /**
+     * Sýnýfý baþlatýr ve gerekli iþlemleri çaðýrýr
+     *
+     * @return mixed
+     */
+    public function boot()
+    {
+
+    }
+
+    /**
+     * Sürücünün kullanýlabilir olup olmadýðýna bakar
+     *
+     * @return bool
+     */
+    public function check()
+    {
+        return true;
+    }
 }
