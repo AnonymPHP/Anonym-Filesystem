@@ -9,6 +9,7 @@
 
     namespace Anonym\Components\Filesystem;
     use Anonym\Components\Filesystem\Exceptions\DriverNotFoundException;
+    use Anonym\Components\Filesystem\Exceptions\DriverIsNotReallyDriver;
     use InvalidArgumentException;
 
     /**
@@ -61,7 +62,12 @@
             $driverList = $this->getDriverList();
             if (isset($driverList[$driver])) {
                 $driver = $driverList[$driver];
-
+                if($driver instanceof DriverInterface){
+                  $this->setDriver($driver);
+                    return $this;
+                }else{
+                    throw new DriverIsNotReallyDriver(sprintf('%s sınıfınız gerçek bir sürücü değil', get_class($driver)));
+                }
             }else{
                 throw new DriverNotFoundException(sprintf('%s isminde bir sürücü bulunamadı', $driver));
             }
