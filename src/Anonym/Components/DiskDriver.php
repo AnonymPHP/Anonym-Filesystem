@@ -49,7 +49,7 @@ class DiskDriver extends Driver implements DriverInterface
         } else {
 
             throw new FileNotFoundException(
-                sprintf('Girdiðiniz %s dosyasý bulunamadý', $fileName)
+                sprintf('Girdiðiniz %s dosyasý bulunamadý', $name)
             );
         }
     }
@@ -75,6 +75,9 @@ class DiskDriver extends Driver implements DriverInterface
      */
     public function prepend($name = '', $text = '')
     {
+        $content = $text.$this->read($name);
+        $this->write($name, $content);
+        return $this;
 
     }
 
@@ -154,6 +157,27 @@ class DiskDriver extends Driver implements DriverInterface
     public function move($src = '', $dest = '')
     {
 
+    }
+
+    /**
+     * $filepath ile girilen yola $mode deðiþkenindeki izinleri atar
+     *
+     * @param string $filePath
+     * @param int $mode
+     * @throws Exception
+     * @return bool
+     */
+    public function chmod($filePath = '', $mode = 0777)
+    {
+        if(!is_string($filePath))
+        {
+            throw new Exception(sprintf('%s fonksiyonunda girdiðiniz isim string olmalýdýr', __FUNCTION__));
+        }
+
+        if (true === $this->exists($filePath)) {
+
+            return chmod($filePath, $mode);
+        }
     }
 
     /**

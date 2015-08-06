@@ -43,7 +43,7 @@
 
         /**
          * @param string $driver
-         * @return $this
+         * @return Driver|bool
          * @throws DriverIsNotReallyDriver
          * @throws DriverNotFoundException
          * @throws DriverNotReadyException
@@ -66,7 +66,7 @@
 
                     if ($driver->check()) {
                         $this->setDriver($driver);
-                        return $this;
+                        return $driver;
                     }else{
                         throw new DriverNotReadyException(sprintf('%s Sürücünüz kullanılabilir değil', get_class($driver)));
                     }
