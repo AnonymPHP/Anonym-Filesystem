@@ -7,6 +7,7 @@
  */
 
 namespace Anonym\Components\Filesystem;
+use Anonym\Components\Filesystem\Exceptions\FileNotFoundException;
 
 /**
  * Class DiskDriver
@@ -28,18 +29,29 @@ class DiskDriver extends Driver implements DriverInterface
     }
 
     /**
-     * Dosyanýn içeriðini okur
-     *
      * @param string $name
-     * @return mixed
+     * @return bool|string
+     * @throws FileNotFoundException
      */
     public function read($name = '')
     {
-        $open = fopen($name, "r");
-        $read = fgets($open, filesize($name));
-        fclose($read);
+        if ($this->exists($name)) {
 
-        return $read;
+            if ($this->isReadable($name)) {
+                    $open = fopen($name, 'r');
+                    $read = fgetss($open, filesize($name));
+                    fclose($open);
+                    return $read;
+            } else {
+                return false;
+            }
+
+        } else {
+
+            throw new FileNotFoundException(
+                sprintf('Girdiðiniz %s dosyasý bulunamadý', $fileName)
+            );
+        }
     }
 
     /**
@@ -51,7 +63,7 @@ class DiskDriver extends Driver implements DriverInterface
      */
     public function append($name = '', $text = '')
     {
-
+        return $this->write($name, $text, 'a');
     }
 
     /**
@@ -64,6 +76,29 @@ class DiskDriver extends Driver implements DriverInterface
     public function prepend($name = '', $text = '')
     {
 
+    }
+
+    /**
+     * Dosyanýn okunabilir olup olmadýðýna bakar
+     *
+     * @param string $fileName
+     * @return bool
+     */
+    public function isReadable($fileName = '')
+    {
+        return is_readable($fileName);
+    }
+
+
+    /**
+     * Dosyanýn yazýlabilir olduðuna bakar
+     *
+     * @param string $fileName
+     * @return bool
+     */
+    public function isWriteable($fileName = '')
+    {
+        return is_writeable($fileName);
     }
 
     /**
