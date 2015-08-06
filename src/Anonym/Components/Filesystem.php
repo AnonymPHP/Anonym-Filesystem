@@ -9,6 +9,7 @@
 
     namespace Anonym\Components\Filesystem;
     use Anonym\Components\Filesystem\Exceptions\DriverNotFoundException;
+    use Anonym\Components\Filesystem\Exceptions\DriverNotReadyException;
     use Anonym\Components\Filesystem\Exceptions\DriverIsNotReallyDriver;
     use InvalidArgumentException;
 
@@ -45,6 +46,7 @@
          * @return $this
          * @throws DriverIsNotReallyDriver
          * @throws DriverNotFoundException
+         * @throws DriverNotReadyException
          */
         public function selectDriver($driver = '')
         {
@@ -66,7 +68,7 @@
                         $this->setDriver($driver);
                         return $this;
                     }else{
-
+                        throw new DriverNotReadyException(sprintf('%s Sürücünüz kullanılabilir değil', get_class($driver)));
                     }
                 }else{
                     throw new DriverIsNotReallyDriver(sprintf('%s sınıfınız gerçek bir sürücü değil', get_class($driver)));
