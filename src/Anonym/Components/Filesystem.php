@@ -140,6 +140,7 @@
          * @return Filesystem
          * @throws DriverIsNotReallyDriver
          * @throws DriverNotFoundException
+         * @throws DriverNotReadyException
          */
         public function driver($driver = '')
         {

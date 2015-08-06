@@ -24,6 +24,7 @@ class DiskDriver extends Driver implements DriverInterface
      */
     public function exists($name = '')
     {
+        return file_exists($name);
     }
 
     /**
@@ -34,7 +35,11 @@ class DiskDriver extends Driver implements DriverInterface
      */
     public function read($name = '')
     {
+        $open = fopen($name, "r");
+        $read = fgets($open, filesize($name));
+        fclose($read);
 
+        return $read;
     }
 
     /**
@@ -66,10 +71,19 @@ class DiskDriver extends Driver implements DriverInterface
      *
      * @param string $name
      * @param string $text
+     * @param string $mode
      * @return mixed
      */
-    public function write($name = '', $text = '')
+    public function write($name = '', $text = '', $mode = 'w')
     {
+
+        if ($handle = fopen($name, $mode)) {
+            fwrite($handle, $text);
+            fclose($handle);
+
+            return true;
+        }
+        return false;
 
     }
 
@@ -81,7 +95,7 @@ class DiskDriver extends Driver implements DriverInterface
      */
     public function delete($name = '')
     {
-
+        return unlink($name);
     }
 
     /**
@@ -92,7 +106,7 @@ class DiskDriver extends Driver implements DriverInterface
      */
     public function deleteDir($name = '')
     {
-
+        return rmdir($name);
     }
 
     /**
@@ -114,7 +128,7 @@ class DiskDriver extends Driver implements DriverInterface
      */
     public function boot()
     {
-
+        //
     }
 
     /**
