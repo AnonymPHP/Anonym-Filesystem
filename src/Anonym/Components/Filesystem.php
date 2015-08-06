@@ -19,8 +19,7 @@
     class Filesystem
     {
 
-        /**
-         * @var DriverInterface
+        /**         * @var DriverInterface
          */
         private $driver;
 
@@ -29,7 +28,6 @@
          * @var array
          */
         private $driverList;
-
         /**
          * Sınıfı başlatır ve seçilen driver ı ayarlar
          *
@@ -42,11 +40,10 @@
         }
 
         /**
-         * Driver seçme işlemini yapra
-         *
          * @param string $driver
-         * @throws InvalidArgumentException
-         * @return bool
+         * @return $this
+         * @throws DriverIsNotReallyDriver
+         * @throws DriverNotFoundException
          */
         public function selectDriver($driver = '')
         {
@@ -108,6 +105,20 @@
             $this->driverList = $driverList;
 
             return $this;
+        }
+
+
+        /**
+         * Driver seçer
+         *
+         * @param string $driver
+         * @return Filesystem
+         * @throws DriverIsNotReallyDriver
+         * @throws DriverNotFoundException
+         */
+        public function driver($driver = '')
+        {
+           return  $this->selectDriver($driver);
         }
 
 
