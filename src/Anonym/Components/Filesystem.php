@@ -16,7 +16,7 @@
      * Class Filesystem
      * @package Anonym\Components\Filesystem
      */
-    class Filesystem
+    class Filesystem implements FilesystemInterface
     {
 
         /**         * @var DriverInterface

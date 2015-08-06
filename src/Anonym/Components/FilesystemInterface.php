@@ -15,5 +15,12 @@ namespace Anonym\Components\Filesystem;
  */
 interface FilesystemInterface
 {
+    /**
+     * Kullanýlacak olan driver Girilir
+     *
+     * @param string $driver
+     * @return mixed
+     */
+    public function driver($driver = '');
 
 }
