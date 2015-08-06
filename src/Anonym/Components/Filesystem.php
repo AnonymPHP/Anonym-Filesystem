@@ -28,6 +28,7 @@
          * @var array
          */
         private $driverList;
+
         /**
          * Sınıfı başlatır ve seçilen driver ı ayarlar
          *
@@ -59,7 +60,7 @@
             $driverList = $this->getDriverList();
             if (isset($driverList[$driver])) {
                 $driver = $driverList[$driver];
-                if($driver instanceof DriverInterface){
+                if($driver instanceof DriverInterface && $driver instanceof Driver){
                   $this->setDriver($driver);
                     return $this;
                 }else{
@@ -107,6 +108,23 @@
             return $this;
         }
 
+        /**
+         * Sınıfa veri ekler
+         *
+         * @param string $name
+         * @param null $instance
+         * @return $this
+         */
+        public function add($name = '', $instance= null)
+        {
+
+            if(null === $instance){
+                throw new InvalidArgumentException('Boş bir değeri sürücü listenize ekleyemeyiz');
+            }
+
+            $this->driverList[$name] = $instance;
+            return $this;
+        }
 
         /**
          * Driver seçer
