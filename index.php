@@ -15,5 +15,7 @@ $filesystem->setConfig([
         'root' => '.'
     ]
 ]);
+
 $local = $filesystem->disk('local');
+
 

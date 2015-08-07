@@ -72,7 +72,7 @@ class Filesystem
      * Sürücü seçimi yapar
      *
      * @param null $driver
-     * @return FlySystem
+     * @return FilesystemAdapter|bool
      */
     public function disk($driver = null)
     {
@@ -83,7 +83,7 @@ class Filesystem
      * Sürücü Seçimi yapar
      *
      * @param null $driver
-     * @return FilesystemInterface
+     * @return FilesystemAdapter|bool
      */
     public function driver($driver = null)
     {
@@ -107,7 +107,7 @@ class Filesystem
      * Sürücü seçimi yapar
      *
      * @param null $driver
-     * @return bool|FilesystemInterface
+     * @return bool|FilesystemAdapter
      */
     public function selectDriver($driver = null)
     {
