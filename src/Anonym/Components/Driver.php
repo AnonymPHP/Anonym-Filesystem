@@ -86,4 +86,20 @@ abstract class Driver
      * @return mixed
      */
     abstract public function move($src = '', $dest = '');
+
+    /**
+     * Yeni bir dosya oluşturur
+     *
+     * @param string $href
+     * @return mixed
+     */
+    abstract public function create($href = '');
+
+    /**
+     * Yeni bir klasör oluşturur
+     *
+     * @param string $href
+     * @return mixed
+     */
+    abstract public function createDir($href = '');
 }

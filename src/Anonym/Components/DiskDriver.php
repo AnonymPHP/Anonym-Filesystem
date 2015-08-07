@@ -255,4 +255,26 @@ class DiskDriver extends Driver implements DriverInterface
     {
         return true;
     }
+
+    /**
+     * Yeni bir dosya oluşturur
+     *
+     * @param string $href
+     * @return mixed
+     */
+    public function create($href = '')
+    {
+        return touch($href);
+    }
+
+    /**
+     * Yeni bir klasör oluşturur
+     *
+     * @param string $href
+     * @return mixed
+     */
+    public function createDir($href = '')
+    {
+        return mkdir($href);
+    }
 }

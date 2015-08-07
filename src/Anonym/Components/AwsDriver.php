@@ -10,9 +10,17 @@ namespace Anonym\Components\Filesystem;
 
 
 use Aws\AwsClient;
+use Aws\S3\S3Client;
 
-class AwsDriver extends Driver implements DriverInterface
+class AwsDriver extends Driver implements DriverInterface, AwsDriverInterface
 {
+
+    /**
+     * Amazon client' i tutar
+     *
+     *  @var S3Client
+     */
+    private $client;
 
 
     /**
@@ -115,6 +123,8 @@ class AwsDriver extends Driver implements DriverInterface
      */
     public function setup(array $configs = [])
     {
+        $s3Client = new S3Client($configs);
+        $this->setClient($s3Client);
 
     }
 
@@ -140,5 +150,45 @@ class AwsDriver extends Driver implements DriverInterface
         }else{
             return false;
         }
+    }
+
+    /**
+     * @return S3Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param S3Client $client
+     * @return AwsDriver
+     */
+    public function setClient(S3Client $client)
+    {
+        $this->client = $client;
+        return $this;
+    }
+
+    /**
+     * Yeni bir dosya oluşturur
+     *
+     * @param string $href
+     * @return mixed
+     */
+    public function create($href = '')
+    {
+
+    }
+
+    /**
+     * Yeni bir klasör oluşturur
+     *
+     * @param string $href
+     * @return mixed
+     */
+    public function createDir($href = '')
+    {
+
     }
 }
