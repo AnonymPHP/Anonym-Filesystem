@@ -37,8 +37,18 @@
          */
         public function __construct($driver = '')
         {
-
+            $this->useDefaultVars();
             $this->selectDriver($driver);
+        }
+
+        /**
+         * Öntanımlı değerleri kullandırır
+         */
+        private function useDefaultVars()
+        {
+            $this->setDriverList([
+               'disk' => DiskDriver::class,
+            ]);
         }
 
         /**
@@ -62,6 +72,9 @@
             $driverList = $this->getDriverList();
             if (isset($driverList[$driver])) {
                 $driver = $driverList[$driver];
+                if(is_string($driver)){
+                    $driver = new $driver;
+                }
                 if($driver instanceof DriverInterface && $driver instanceof Driver){
 
                     if ($driver->check()) {
