@@ -18,6 +18,7 @@ use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\NotSupportedException;
 use League\Flysystem\Adapter\Ftp as FtpAdapter;
 use League\Flysystem\Rackspace\RackspaceAdapter;
+use OpenCloud\Rackspace;
 
 /**
  * Class Filesystem

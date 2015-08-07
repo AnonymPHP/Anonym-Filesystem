@@ -285,7 +285,7 @@ class FilesystemAdapter implements FilesystemInterface
      */
     public function updateStream($path, $resource, array $config = [])
     {
-        // TODO: Implement updateStream() method.
+        return $this->getAdapter()->updateStream($path, $resource, $config);
     }
 
     /**
