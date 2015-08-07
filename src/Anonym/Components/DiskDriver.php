@@ -7,6 +7,7 @@
  */
 
 namespace Anonym\Components\Filesystem;
+
 use Anonym\Components\Filesystem\Exceptions\FileNotFoundException;
 
 /**
@@ -38,10 +39,10 @@ class DiskDriver extends Driver implements DriverInterface
         if ($this->exists($name)) {
 
             if ($this->isReadable($name)) {
-                    $open = fopen($name, 'r');
-                    $read = fgetss($open, filesize($name));
-                    fclose($open);
-                    return $read;
+                $open = fopen($name, 'r');
+                $read = fgetss($open, filesize($name));
+                fclose($open);
+                return $read;
             } else {
                 return false;
             }
@@ -75,7 +76,7 @@ class DiskDriver extends Driver implements DriverInterface
      */
     public function prepend($name = '', $text = '')
     {
-        $content = $text.$this->read($name);
+        $content = $text . $this->read($name);
         $this->write($name, $content);
         return $this;
 
@@ -156,7 +157,7 @@ class DiskDriver extends Driver implements DriverInterface
      */
     public function move($src = '', $dest = '')
     {
-
+        return $this->rename($src, $dest);
     }
 
     /**
@@ -169,14 +170,68 @@ class DiskDriver extends Driver implements DriverInterface
      */
     public function chmod($filePath = '', $mode = 0777)
     {
-        if(!is_string($filePath))
-        {
+        if (!is_string($filePath)) {
             throw new Exception(sprintf('%s fonksiyonunda girdiðiniz isim string olmalýdýr', __FUNCTION__));
         }
 
         if (true === $this->exists($filePath)) {
 
             return chmod($filePath, $mode);
+        }
+    }
+
+    /**
+     * @param string $src
+     * @param  string $dest
+     * @return bool
+     * @throws Exception
+     */
+    public function rename($src, $dest)
+    {
+        if (!is_string($src) || !is_string($dest)) {
+            throw new Exception(sprintf('%s fonksiyonunda girdiðiniz isim string olmalýdýr', __FUNCTION__));
+        }
+
+        if (false === $this->exists($src)) {
+            return;
+        }
+
+        if (false === rename($src, $dest)) {
+
+            $error = error_get_last();
+            throw new Exception(
+                sprintf('Ýsim deðiþtirme iþlemi sýrasýnda bir hata oluþtu: %s', $error['message'])
+            );
+        }
+
+
+        return true;
+    }
+
+    /**
+     * Dosya Kopyalama Ýþlemini yapar
+     *
+     * @param string $src
+     * @param string $desc
+     * @throws Exception
+     */
+    public function copy($src = '', $desc = '')
+    {
+
+        if (!is_file($src)) {
+
+            throw new Exception(
+                sprintf('girdiðiniz %s bir dosya deðil', $src));
+        }
+
+        $this->mkdir($desc);
+
+        if (true !== copy($src, $desc)) {
+
+            $error = error_get_last();
+            throw new Exception(
+                sprintf('Dosya kopyalama sýrasýnda bir hata oluþtu: %s', $error['message'])
+            );
         }
     }
 
