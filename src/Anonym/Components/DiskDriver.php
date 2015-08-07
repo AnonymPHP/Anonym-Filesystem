@@ -51,7 +51,7 @@ class DiskDriver extends Driver implements DriverInterface
         } else {
 
             throw new FileNotFoundException(
-                sprintf('Girdi�iniz %s dosyas� bulunamad�', $name)
+                sprintf('Girdiğiniz %s dosyası bulunamadı ', $name)
             );
         }
     }
@@ -96,7 +96,7 @@ class DiskDriver extends Driver implements DriverInterface
 
 
     /**
-     * Dosyan�n yaz�labilir oldu�una bakar
+     * Dosyanın yazılabilir olup olmadığına bakar
      *
      * @param string $fileName
      * @return bool
@@ -201,7 +201,7 @@ class DiskDriver extends Driver implements DriverInterface
 
             $error = error_get_last();
             throw new Exception(
-                sprintf('�sim de�i�tirme i�lemi s�ras�nda bir hata olu�tu: %s', $error['message'])
+                sprintf('isim değiştirme işlemi sırasında bir hata oluştu: %s', $error['message'])
             );
         }
 
@@ -222,7 +222,7 @@ class DiskDriver extends Driver implements DriverInterface
         if (!is_file($src)) {
 
             throw new Exception(
-                sprintf('girdi�iniz %s bir dosya de�il', $src));
+                sprintf('girdiğiniz %s bir dosya değil', $src));
         }
 
         $this->mkdir($desc);
@@ -231,7 +231,7 @@ class DiskDriver extends Driver implements DriverInterface
 
             $error = error_get_last();
             throw new Exception(
-                sprintf('Dosya kopyalama s�ras�nda bir hata olu�tu: %s', $error['message'])
+                sprintf('Dosya kopyalama sırasında bir hata oluıtu: %s', $error['message'])
             );
         }
     }
