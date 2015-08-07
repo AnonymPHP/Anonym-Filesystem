@@ -8,3 +8,13 @@
  */
 
 include 'vendor/autoload.php';
+
+$filesystem = new \Anonym\Components\Filesystem\Filesystem();
+$filesystem->setConfig([
+    'local' => [
+        'root' => '.'
+    ]
+]);
+$local = $filesystem->disk('local');
+
+

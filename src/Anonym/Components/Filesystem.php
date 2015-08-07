@@ -205,7 +205,7 @@ class Filesystem
      */
     public function createLocalDriver()
     {
-        return new FlySystem(new LocalAdapter());
+        return new FlySystem(new LocalAdapter($this->getConfig()['local']['root']));
     }
 
     /**
