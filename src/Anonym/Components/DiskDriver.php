@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: va
- * Date: 07.08.2015
- * Time: 00:02
+ * Bu Dosya AnonymFramework'e ait bir dosyadï¿½r.
+ *
+ * @author vahitserifsaglam <vahit.serif119@gmail.com>
+ * @see http://gemframework.com
+ *
  */
 
 namespace Anonym\Components\Filesystem;
@@ -19,7 +20,7 @@ class DiskDriver extends Driver implements DriverInterface
 
 
     /**
-     * Dosyanın olup olmadığını kontrol eder
+     * DosyanÄ± kontrol eder
      *
      * @param string $name
      * @return mixed
@@ -50,13 +51,13 @@ class DiskDriver extends Driver implements DriverInterface
         } else {
 
             throw new FileNotFoundException(
-                sprintf('Girdiğiniz %s dosyası bulunamadı', $name)
+                sprintf('Girdiï¿½iniz %s dosyasï¿½ bulunamadï¿½', $name)
             );
         }
     }
 
     /**
-     * Dosyanın içeriğinin sonuna veri eklemesi yapar
+     * DosyanÄ±n sonuna veri ekler
      *
      * @param string $name
      * @param string $text
@@ -68,7 +69,7 @@ class DiskDriver extends Driver implements DriverInterface
     }
 
     /**
-     * Dosyanın içeriğinin başına veri ekler
+     * DosyanÄ±n baÅŸÄ±na veri ekler
      *
      * @param string $name
      * @param string $text
@@ -83,7 +84,7 @@ class DiskDriver extends Driver implements DriverInterface
     }
 
     /**
-     * Dosyanın okunabilir olup olmadığına bakar
+     * DosyanÄ±n okunabilir olup olmadÄ±ÄŸÄ±na bakar
      *
      * @param string $fileName
      * @return bool
@@ -95,7 +96,7 @@ class DiskDriver extends Driver implements DriverInterface
 
 
     /**
-     * Dosyanın yazılabilir olduğuna bakar
+     * Dosyanï¿½n yazï¿½labilir olduï¿½una bakar
      *
      * @param string $fileName
      * @return bool
@@ -106,7 +107,7 @@ class DiskDriver extends Driver implements DriverInterface
     }
 
     /**
-     * Dosyanın içeriğini tamamen değiştirir
+     * DosyanÄ±n iÃ§eriÄŸini atar
      *
      * @param string $name
      * @param string $text
@@ -127,7 +128,7 @@ class DiskDriver extends Driver implements DriverInterface
     }
 
     /**
-     * Dosyayı siler
+     * DosyayÄ± siler
      *
      * @param string $name
      * @return mixed
@@ -138,7 +139,7 @@ class DiskDriver extends Driver implements DriverInterface
     }
 
     /**
-     * Klasörü siler
+     * KlasÃ¼rÃ¼ siler
      *
      * @param string $name
      * @return mixed
@@ -149,7 +150,7 @@ class DiskDriver extends Driver implements DriverInterface
     }
 
     /**
-     * Dosyayı kopyalar
+     * DosyayÄ± kopyalar
      *
      * @param string $src
      * @param string $dest
@@ -161,7 +162,7 @@ class DiskDriver extends Driver implements DriverInterface
     }
 
     /**
-     * $filepath ile girilen yola $mode değişkenindeki izinleri atar
+     * $filepath ile girilen yola $mode deÄŸiÅŸkenindeki izinleri atar
      *
      * @param string $filePath
      * @param int $mode
@@ -171,7 +172,7 @@ class DiskDriver extends Driver implements DriverInterface
     public function chmod($filePath = '', $mode = 0777)
     {
         if (!is_string($filePath)) {
-            throw new Exception(sprintf('%s fonksiyonunda girdiğiniz isim string olmalıdır', __FUNCTION__));
+            throw new Exception(sprintf('%s fonksiyonunda girdiï¿½iniz isim string olmalï¿½dï¿½r', __FUNCTION__));
         }
 
         if (true === $this->exists($filePath)) {
@@ -189,7 +190,7 @@ class DiskDriver extends Driver implements DriverInterface
     public function rename($src, $dest)
     {
         if (!is_string($src) || !is_string($dest)) {
-            throw new Exception(sprintf('%s fonksiyonunda girdiğiniz isim string olmalıdır', __FUNCTION__));
+            throw new Exception(sprintf('%s fonksiyonunda girdiï¿½iniz isim string olmalï¿½dï¿½r', __FUNCTION__));
         }
 
         if (false === $this->exists($src)) {
@@ -200,7 +201,7 @@ class DiskDriver extends Driver implements DriverInterface
 
             $error = error_get_last();
             throw new Exception(
-                sprintf('İsim değiştirme işlemi sırasında bir hata oluştu: %s', $error['message'])
+                sprintf('ï¿½sim deï¿½iï¿½tirme iï¿½lemi sï¿½rasï¿½nda bir hata oluï¿½tu: %s', $error['message'])
             );
         }
 
@@ -209,7 +210,7 @@ class DiskDriver extends Driver implements DriverInterface
     }
 
     /**
-     * Dosya Kopyalama İşlemini yapar
+     * Dosya Kopyalama iÅŸlemini yapar
      *
      * @param string $src
      * @param string $desc
@@ -221,7 +222,7 @@ class DiskDriver extends Driver implements DriverInterface
         if (!is_file($src)) {
 
             throw new Exception(
-                sprintf('girdiğiniz %s bir dosya değil', $src));
+                sprintf('girdiï¿½iniz %s bir dosya deï¿½il', $src));
         }
 
         $this->mkdir($desc);
@@ -230,13 +231,13 @@ class DiskDriver extends Driver implements DriverInterface
 
             $error = error_get_last();
             throw new Exception(
-                sprintf('Dosya kopyalama sırasında bir hata oluştu: %s', $error['message'])
+                sprintf('Dosya kopyalama sï¿½rasï¿½nda bir hata oluï¿½tu: %s', $error['message'])
             );
         }
     }
 
     /**
-     * Sınıfı başlatır ve gerekli işlemleri çağırır
+     * SÄ±nÄ±fÄ± baÅŸlatÄ±r ve gerekli iÅŸlemleri yapar
      *
      * @return mixed
      */
@@ -246,7 +247,7 @@ class DiskDriver extends Driver implements DriverInterface
     }
 
     /**
-     * Sürücünün kullanılabilir olup olmadığına bakar
+     * SÃ¼rÃ¼cÃ¼nÃ¼n kullanÄ±lÄ±r olup olmadÄ±ÄŸÄ±na bakar
      *
      * @return bool
      */

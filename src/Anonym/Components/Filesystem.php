@@ -55,6 +55,8 @@
         }
 
         /**
+         * Sürücüyü seçer
+         *
          * @param string $driver
          * @return Driver|bool
          * @throws DriverIsNotReallyDriver
