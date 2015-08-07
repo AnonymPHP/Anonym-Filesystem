@@ -15,7 +15,7 @@ use Anonym\Components\Filesystem\Exceptions\FileNotFoundException;
  * Class DiskDriver
  * @package Anonym\Components\Filesystem
  */
-class DiskDriver extends Driver implements DriverInterface
+class DiskDriver
 {
 
 
