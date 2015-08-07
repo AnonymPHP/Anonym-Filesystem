@@ -35,10 +35,13 @@
          *
          * @param string $driver
          */
-        public function __construct($driver = '')
+        public function __construct($driver = null)
         {
             $this->useDefaultVars();
-            $this->selectDriver($driver);
+
+            if (null !== $driver) {
+                $this->selectDriver($driver);
+            }
         }
 
         /**
