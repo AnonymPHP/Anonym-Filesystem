@@ -517,4 +517,17 @@ class FilesystemAdapter implements FilesystemInterface
     {
         $this->getAdapter()->addPlugin($plugin);
     }
+
+    /**
+     * Eğer fonksiyon bu sınıfta yoksa adapter den çağırmaya çalışır
+     *
+     * @param string $method
+     * @param array $args
+     * @return mixed
+     */
+    public function __call($method, $args)
+    {
+
+        return call_user_func_array([$this->getAdapter(), $method], $args);
+    }
 }

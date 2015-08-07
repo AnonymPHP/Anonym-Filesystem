@@ -17,4 +17,3 @@ $filesystem->setConfig([
 ]);
 $local = $filesystem->disk('local');
 
-
