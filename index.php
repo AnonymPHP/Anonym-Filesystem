@@ -6,3 +6,5 @@
  * @see http://gemframework.com
  *
  */
+
+include 'vendor/autoload.php';
