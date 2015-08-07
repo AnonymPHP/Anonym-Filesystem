@@ -1,6 +1,6 @@
 <?php
 /**
- * Bu Dosya AnonymFramework'e ait bir dosyadır.
+ * Bu Dosya AnonymFramework'e ait bir dosyadÄ±r.
  *
  * @author vahitserifsaglam <vahit.serif119@gmail.com>
  * @see http://gemframework.com
@@ -17,7 +17,7 @@ abstract class Driver
 {
 
     /**
-     * Dosyanın olup olmadığını kontrol eder
+     * DosyanÄ±n olup olmadÄ±ÄŸÄ±nÄ± kontrol eder
      *
      * @param string $name
      * @return mixed
@@ -25,7 +25,7 @@ abstract class Driver
     abstract public function exists($name = '');
 
     /**
-     * Dosyanın içeriğini okur
+     * Dosyanï¿½n iï¿½eriï¿½ini okur
      *
      * @param string $name
      * @return mixed
@@ -33,7 +33,7 @@ abstract class Driver
     abstract public function read($name = '');
 
     /**
-     * Dosyanın içeriğinin sonuna veri eklemesi yapar
+     * DosyanÄ±n iÃ§eriÄŸinin sonuna veri eklemesi yapar
      *
      * @param string $name
      * @param string $text
@@ -43,7 +43,7 @@ abstract class Driver
 
 
     /**
-     * Dosyanın içeriğinin başına veri ekler
+     * DosyanÄ±n iÃ§eriÄŸin baÅŸÄ±na  veri ekler
      *
      * @param string $name
      * @param string $text
@@ -52,7 +52,7 @@ abstract class Driver
     abstract public function prepend($name = '', $text = '');
 
     /**
-     * Dosyanın içeriğini tamamen değiştirir
+     * DosyanÄ±n iÃ§eriÄŸini tamamen deÄŸiÅŸtirir
      *
      * @param string $name
      * @param string $text
@@ -61,7 +61,7 @@ abstract class Driver
     abstract public function write($name = '', $text = '');
 
     /**
-     * Dosyayı siler
+     * DosyayÄ± siler
      *
      * @param string $name
      * @return mixed
@@ -70,7 +70,7 @@ abstract class Driver
 
 
     /**
-     * Klasörü siler
+     * KlasÃ¶rÃ¼ siler
      *
      * @param string $name
      * @return mixed
@@ -79,7 +79,7 @@ abstract class Driver
 
 
     /**
-     * Dosyayı kopyalar
+     * DosyayÄ± kopyalar
      *
      * @param string $src
      * @param string $dest
