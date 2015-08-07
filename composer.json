@@ -1,6 +1,7 @@
 {
   "name": "anonym-php/anonym-filesystem",
   "type": "library",
+  "version":"1.0.0",
   "description": "AnonymFramework Filesystem Components",
   "keywords": [
     "filesystem"
@@ -23,5 +24,8 @@
     "branch-alias": {
       "dev-master": "1.0-dev"
     }
+  },
+  "require-dev": {
+    "aws/aws-sdk-php":"dev-master"
   }
 }
