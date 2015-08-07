@@ -280,6 +280,4 @@ class Filesystem
         $this->config = $config;
         return $this;
     }
-
-
 }
