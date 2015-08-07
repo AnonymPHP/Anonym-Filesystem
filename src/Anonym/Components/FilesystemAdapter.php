@@ -8,6 +8,9 @@
  */
 
 namespace Anonym\Components\Filesystem;
+
+use Anonym\Components\Filesystem\Exceptions\FilesystemFileNotFoundException;
+use League\Flysystem\AdapterInterface;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
@@ -20,9 +23,23 @@ use League\Flysystem\InvalidArgumentException;
  * Class FilesystemAdapter
  * @package Anonym\Components\Filesystem
  */
-class FilesystemAdapter implements  FilesystemInterface
+class FilesystemAdapter implements FilesystemInterface
 {
 
+    /**
+     * Herkeze açık görünürlüğü ifade eder
+     *
+     *
+     * @var string
+     */
+    const VISIBILITY_PUBLIC = 'public';
+
+    /**
+     * Gizli görünürlüğü ifade eder
+     *
+     * @var string
+     */
+    const VISIBILITY_PRIVATE = 'private';
     /**
      * Adapter i tutar
      *
@@ -60,6 +77,17 @@ class FilesystemAdapter implements  FilesystemInterface
 
 
     /**
+     * Dosyanın olup olmadığını kontrol eder
+     *
+     * @param string $path
+     * @return bool
+     */
+    public function exists($path)
+    {
+        return $this->has($path);
+    }
+
+    /**
      * Check whether a file exists.
      *
      * @param string $path
@@ -68,7 +96,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function has($path)
     {
-        // TODO: Implement has() method.
+        return $this->getAdapter()->has($path);
     }
 
     /**
@@ -76,17 +104,16 @@ class FilesystemAdapter implements  FilesystemInterface
      *
      * @param string $path The path to the file.
      *
-     * @throws FileNotFoundException
+     * @throws FilesystemFileNotFoundException
      *
      * @return string|false The file contents or false on failure.
      */
     public function read($path)
     {
-        try{
+        try {
             return $this->getAdapter()->read($path);
-        }catch (FileNotFoundException $e)
-        {
-
+        } catch (FileNotFoundException $e) {
+            throw new FilesystemFileNotFoundException(sprintf('%s isimli dosyanız bulunamadı', $path));
         }
     }
 
@@ -95,13 +122,17 @@ class FilesystemAdapter implements  FilesystemInterface
      *
      * @param string $path The path to the file.
      *
-     * @throws FileNotFoundException
+     * @throws FilesystemFileNotFoundException
      *
      * @return resource|false The path resource or false on failure.
      */
     public function readStream($path)
     {
-        // TODO: Implement readStream() method.
+        try {
+            return $this->getAdapter()->readStream($path);
+        } catch (FileNotFoundException $e) {
+            throw new FilesystemFileNotFoundException(sprintf('%s isimli dosyanız bulunamadı', $path));
+        }
     }
 
     /**
@@ -114,7 +145,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function listContents($directory = '', $recursive = false)
     {
-        // TODO: Implement listContents() method.
+
     }
 
     /**
@@ -128,7 +159,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function getMetadata($path)
     {
-        // TODO: Implement getMetadata() method.
+        return $this->getAdapter()->getMetadata($path);
     }
 
     /**
@@ -140,7 +171,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function getSize($path)
     {
-        // TODO: Implement getSize() method.
+        return $this->getAdapter()->getSize($path);
     }
 
     /**
@@ -154,7 +185,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function getMimetype($path)
     {
-        // TODO: Implement getMimetype() method.
+        return $this->getAdapter()->getMimetype($path);
     }
 
     /**
@@ -168,7 +199,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function getTimestamp($path)
     {
-        // TODO: Implement getTimestamp() method.
+        return $this->getAdapter()->getTimestamp($path);
     }
 
     /**
@@ -182,7 +213,13 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function getVisibility($path)
     {
-        // TODO: Implement getVisibility() method.
+        $visibility = $this->getAdapter()->getVisibility($path);
+
+        if ($visibility === AdapterInterface::VISIBILITY_PUBLIC) {
+            return self::VISIBILITY_PUBLIC;
+        }
+
+        return self::VISIBILITY_PRIVATE;
     }
 
     /**
@@ -198,7 +235,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function write($path, $contents, array $config = [])
     {
-        // TODO: Implement write() method.
+        return $this->getAdapter()->write($path, $config, $config);
     }
 
     /**
@@ -215,7 +252,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function writeStream($path, $resource, array $config = [])
     {
-        // TODO: Implement writeStream() method.
+        return $this->writeStream($path, $resource, $config);
     }
 
     /**
@@ -231,7 +268,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function update($path, $contents, array $config = [])
     {
-        // TODO: Implement update() method.
+        return $this->getAdapter()->update($path, $config, $config);
     }
 
     /**
@@ -264,7 +301,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function rename($path, $newpath)
     {
-        // TODO: Implement rename() method.
+        return $this->getAdapter()->rename($path, $newpath);
     }
 
     /**
@@ -280,13 +317,13 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function copy($path, $newpath)
     {
-        // TODO: Implement copy() method.
+        return $this->getAdapter()->copy($path, $newpath);
     }
 
     /**
      * Delete a file.
      *
-     * @param string $path
+     * @param string|array $path
      *
      * @throws FileNotFoundException
      *
@@ -294,13 +331,18 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function delete($path)
     {
-        // TODO: Implement delete() method.
+        $paths = is_array($path) ? $path : func_get_args();
+        foreach ($paths as $pa) {
+            $this->getAdapter()->delete($pa);
+        }
+
+        return true;
     }
 
     /**
      * Delete a directory.
      *
-     * @param string $dirname
+     * @param string|array $dirname
      *
      * @throws RootViolationException Thrown if $dirname is empty.
      *
@@ -308,20 +350,63 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function deleteDir($dirname)
     {
-        // TODO: Implement deleteDir() method.
+        $dirs = is_array($dirname) ? $dirname : func_get_args();
+        foreach ($dirs as $dir) {
+            $this->getAdapter()->deleteDir($dir);
+        }
+
+        return true;
     }
 
     /**
      * Create a directory.
      *
-     * @param string $dirname The name of the new directory.
+     * @param string|array $dirname The name of the new directory.
      * @param array $config An optional configuration array.
      *
      * @return bool True on success, false on failure.
      */
     public function createDir($dirname, array $config = [])
     {
-        // TODO: Implement createDir() method.
+        $dirs = is_array($dirname) ? $dirname : func_get_args();
+
+        foreach ($dirs as $dir) {
+            $this->getAdapter()->createDir($dir);
+        }
+
+        return true;
+    }
+
+    /**
+     * Dosyanın önüne içerik ekler
+     *
+     * @param  string $path
+     * @param  string $data
+     * @return int
+     */
+    public function prepend($path, $data)
+    {
+        if ($this->exists($path)) {
+            return $this->write($path, $data . PHP_EOL . $this->get($path));
+        }
+
+        return $this->write($path, $data);
+    }
+
+    /**
+     * Dosyanın sonuna veri ekler
+     *
+     * @param  string $path
+     * @param  string $data
+     * @return int
+     */
+    public function append($path, $data)
+    {
+        if ($this->exists($path)) {
+            return $this->write($path, $this->get($path) . PHP_EOL . $data);
+        }
+
+        return $this->write($path, $data);
     }
 
     /**
@@ -334,7 +419,31 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function setVisibility($path, $visibility)
     {
-        // TODO: Implement setVisibility() method.
+        return $this->getAdapter()->setVisibility($path, $this->parseVisibility($visibility));
+    }
+
+    /**
+     * Görünürlük değerini parçalar
+     *
+     * @param $visibility
+     * @return string|void
+     * @throws InvalidArgumentException
+     */
+    protected function parseVisibility($visibility)
+    {
+        if (is_null($visibility)) {
+            return;
+        }
+
+        switch ($visibility) {
+            case self::VISIBILITY_PUBLIC:
+                return AdapterInterface::VISIBILITY_PUBLIC;
+
+            case self::VISIBILITY_PRIVATE:
+                return AdapterInterface::VISIBILITY_PRIVATE;
+        }
+
+        throw new InvalidArgumentException('Unknown visibility: ' . $visibility);
     }
 
     /**
@@ -348,7 +457,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function put($path, $contents, array $config = [])
     {
-        // TODO: Implement put() method.
+        return $this->getAdapter()->put($path, $contents, $config);
     }
 
     /**
@@ -364,7 +473,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function putStream($path, $resource, array $config = [])
     {
-        // TODO: Implement putStream() method.
+        return $this->getAdapter()->putStream($path, $resource, $config);
     }
 
     /**
@@ -372,17 +481,20 @@ class FilesystemAdapter implements  FilesystemInterface
      *
      * @param string $path The path to the file.
      *
-     * @throws FileNotFoundException
+     * @throws FilesystemFileNotFoundException
      *
      * @return string|false The file contents, or false on failure.
      */
     public function readAndDelete($path)
     {
-        // TODO: Implement readAndDelete() method.
+        $content = $this->read($path);
+        $this->delete($path);
+
+        return $content;
     }
 
     /**
-     * Get a file/directory handler.
+     * Get a file/directory handler
      *
      * @param string $path The path to the file.
      * @param Handler $handler An optional existing handler to populate.
@@ -391,7 +503,7 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function get($path, Handler $handler = null)
     {
-        // TODO: Implement get() method.
+        return $this->getAdapter()->get($path, $handler);
     }
 
     /**
@@ -403,6 +515,6 @@ class FilesystemAdapter implements  FilesystemInterface
      */
     public function addPlugin(PluginInterface $plugin)
     {
-        // TODO: Implement addPlugin() method.
+        $this->getAdapter()->addPlugin($plugin);
     }
 }
