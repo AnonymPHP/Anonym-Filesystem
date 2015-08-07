@@ -2,16 +2,14 @@
   "name": "anonym-php/anonym-filesystem",
   "type": "library",
   "description": "AnonymFramework Filesystem Components",
-  "keywords" : ["filesystem"],
+  "keywords": [
+    "filesystem"
+  ],
   "license": "MIT",
-  "repositories": {
-    "type": "git",
-    "url": "git://github.com/AnonymPHP/Filesystem.git"
-  },
   "minimum-stability": "dev",
   "authors": [
     {
-      "name": "Vahit Þerif Saðlam",
+      "name": "Vahit Åžerif SaÄŸlam",
       "email": "vahit.serif119@gmail.com",
       "homepage": "http://www.gemframework.com"
     }

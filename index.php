@@ -1,6 +1,6 @@
 <?php
 /**
- * Bu Dosya AnonymFramework'e ait bir dosyadýr.
+ * Bu Dosya AnonymFramework'e ait bir dosyadÄ±r.
  *
  * @author vahitserifsaglam <vahit.serif119@gmail.com>
  * @see http://gemframework.com
