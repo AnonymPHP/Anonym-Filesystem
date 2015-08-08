@@ -542,17 +542,13 @@ class FilesystemAdapter implements FilesystemInterface
     }
 
     /**
-     * Get all of the directories within a given directory.
+     * return all files in the dir
      *
-     * @param  string|null $directory
-     * @param  bool $recursive
-     * @return array
+     * @param string $path The path to file
+     * @return array Filtered contents
      */
-    public function directories($directory = null, $recursive = false)
-    {
-        $contents = $this->getAdapter()->listContents($directory, $recursive);
-
-        return $this->filterContentsByType($contents, 'dir');
+    public function files($path = ''){
+        return $this->filterContentsByType($path, 'files');
     }
 
     /**
@@ -563,7 +559,7 @@ class FilesystemAdapter implements FilesystemInterface
      */
     public function allDirectories($directory = null)
     {
-        return $this->directories($directory, true);
+        return $this->filterContentsByType($directory, 'dir');
     }
 
     /**
