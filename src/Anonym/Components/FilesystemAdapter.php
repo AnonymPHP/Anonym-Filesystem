@@ -18,6 +18,7 @@ use League\Flysystem\Handler;
 use League\Flysystem\PluginInterface;
 use League\Flysystem\RootViolationException;
 use League\Flysystem\InvalidArgumentException;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Class FilesystemAdapter
@@ -506,6 +507,83 @@ class FilesystemAdapter implements FilesystemInterface
         return $this->getAdapter()->get($path, $handler);
     }
 
+    /**
+     * Change file/directory chmod configs
+     *
+     * @param string $path The path of ifle
+     * @param int $mode An optional config to chmod
+     * @return bool True on success, false on failure
+     */
+    public function chmod($path, $mode = 0777)
+    {
+        return chmod($path, $mode);
+    }
+
+    /**
+     * Check file/dir is readable
+     *
+     * @param string $path The path to file
+     * @return bool True on if file/dir is readable, false on is not readable
+     */
+    public function isReadable($path)
+    {
+        return is_readable($path);
+    }
+
+    /**
+     * Check file/dir is writeable
+     *
+     * @param string $path The path to file
+     * @return bool True on if file/dir is writeable, false on file/dir is not writeable
+     */
+    public function isWriteable($path)
+    {
+        return is_writeable($path);
+    }
+
+    /**
+     * Get all of the directories within a given directory.
+     *
+     * @param  string|null $directory
+     * @param  bool $recursive
+     * @return array
+     */
+    public function directories($directory = null, $recursive = false)
+    {
+        $contents = $this->getAdapter()->listContents($directory, $recursive);
+
+        return $this->filterContentsByType($contents, 'dir');
+    }
+
+    /**
+     * Get all (recursive) of the directories within a given directory.
+     *
+     * @param  string|null $directory
+     * @return array
+     */
+    public function allDirectories($directory = null)
+    {
+        return $this->directories($directory, true);
+    }
+
+    /**
+     * filter content by type
+     *
+     * @param sting $path The path to file
+     * @param string $type The type of filter
+     * @return array Filtered contents
+     */
+    private function filterContentsByType($path, $type = 'files')
+    {
+
+        if($type === 'dir'){
+            $filter = Finder::create()->directories()->in($path);
+        }elseif($type === 'files'){
+            $filter = Finder::create()->files()->in($path);
+        }
+
+        return $filter;
+    }
     /**
      * Register a plugin.
      *
