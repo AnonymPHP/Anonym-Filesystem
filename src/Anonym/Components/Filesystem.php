@@ -67,6 +67,12 @@ class Filesystem
             'ftp' => 'ftp',
             'rackspace' => 'rackspace'
         ]);
+
+        $this->setConfig([
+            'local' => [
+                'root' => '.'
+            ]
+        ]);
     }
 
     /**
