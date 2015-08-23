@@ -29,7 +29,9 @@
     "aws/aws-sdk-php": "3.2.5",
     "league/flysystem-aws-s3-v3": "~1.0",
     "league/flysystem": "~1.0",
-    "league/flysystem-rackspace": "~1.0",
-    "symfony/finder" : "2.7.*"
+    "league/flysystem-rackspace": "~1.0"
+  },
+  "require-dev": {
+    "symfony/finder": "2.7.*"
   }
 }
