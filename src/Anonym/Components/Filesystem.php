@@ -238,9 +238,10 @@ class Filesystem
             'username' => $config['username'], 'apiKey' => $config['key'],
         ]);
 
-        return $this->adapt(new Flysystem(
+
+        return new Flysystem(
             new RackspaceAdapter($this->getRackspaceContainer($client, $config))
-        ));
+        );
     }
 
     /**
