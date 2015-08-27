@@ -153,18 +153,7 @@ class Filesystem
             $response = $driver();
         }
 
-        return $this->adapter($response);
-    }
-
-    /**
-     * Adapter olarak kullanılmasını sağlar
-     *
-     * @param FilesystemInterface $adapter
-     * @return FilesystemAdapter
-     */
-    private function adapter(FilesystemInterface $adapter){
-
-        return new FilesystemAdapter($adapter);
+        return $response;
     }
 
     /**
