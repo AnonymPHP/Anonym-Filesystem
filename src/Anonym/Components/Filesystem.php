@@ -45,7 +45,7 @@ class Filesystem
      *
      * @var string
      */
-    private $defaultDriver = 'disk';
+    private $defaultDriver = 'local';
 
     /**
      *
