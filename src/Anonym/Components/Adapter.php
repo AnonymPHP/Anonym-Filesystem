@@ -86,4 +86,15 @@ class Adapter
         return false;
     }
 
+    /**
+     * call the method from adapter
+     *
+     * @param string $name the name of method
+     * @param array $args  the parameters will be send to method
+     * @return mixed
+     */
+    public function __get($name, $args = [])
+    {
+        return call_user_func_array([$this->adapter, $name], $args);
+    }
 }
