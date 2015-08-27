@@ -152,7 +152,19 @@ class Filesystem
             $response = $driver();
         }
 
-        return $response;
+        return $this->adapter($response);
+    }
+
+
+    /**
+     * put the instance to adapter
+     *
+     * @param FilesystemInterface $response
+     * @return Adapter
+     */
+    private function adapter($response)
+    {
+        return new Adapter($response);
     }
 
     /**
