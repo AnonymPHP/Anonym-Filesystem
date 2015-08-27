@@ -9,16 +9,15 @@
 
 namespace Anonym\Components\Filesystem;
 
-use Anonym\Components\Filesystem\Exceptions\DriverNotFoundException;
-use Aws\S3\S3Client;
-use League\Flysystem\AwsS3v3\AwsS3Adapter;
-use League\Flysystem\Filesystem as FlySystem;
-use League\Flysystem\FilesystemInterface;
 use League\Flysystem\Adapter\Local as LocalAdapter;
-use League\Flysystem\NotSupportedException;
-use League\Flysystem\Adapter\Ftp as FtpAdapter;
 use League\Flysystem\Rackspace\RackspaceAdapter;
+use League\Flysystem\Adapter\Ftp as FtpAdapter;
+use League\Flysystem\Filesystem as FlySystem;
+use League\Flysystem\NotSupportedException;
+use League\Flysystem\AwsS3v3\AwsS3Adapter;
+use League\Flysystem\FilesystemInterface;
 use OpenCloud\Rackspace;
+use Aws\S3\S3Client;
 
 /**
  * Class Filesystem
@@ -275,5 +274,17 @@ class Filesystem
     {
         $this->config = $config;
         return $this;
+    }
+
+    /**
+     * call the method from default driver
+     *
+     * @param string $name the name of method
+     * @param array $args  the parameters for method
+     * @return mixed
+     */
+    public function __call($name, $args = [])
+    {
+        return call_user_func_array([$this->disk($this->getDefaultDriver()), $name], $args);
     }
 }
