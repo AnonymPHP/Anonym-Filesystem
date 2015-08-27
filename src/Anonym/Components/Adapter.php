@@ -70,4 +70,20 @@ class Adapter
     {
         return is_writeable($path);
     }
+
+    /**
+     * create a new file with file path
+     *
+     * @param string $path
+     * @return bool
+     */
+    public function create($path = '')
+    {
+        if ($this->adapter instanceof Local) {
+            return touch($path);
+        }
+
+        return false;
+    }
+
 }
