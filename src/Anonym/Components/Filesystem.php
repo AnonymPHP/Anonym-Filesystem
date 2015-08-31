@@ -124,7 +124,7 @@ class Filesystem
         $driver = $this->findDriver($driver);
 
         if ($driver instanceof FilesystemInterface) {
-            return $driver;
+            return $this->adapter($driver);
         } else {
             throw new NotSupportedException(sprintf('%s sınıfınız desteklenen bir sürücü değil', get_class($driver)));
         }
@@ -152,7 +152,7 @@ class Filesystem
             $response = $driver();
         }
 
-        return $this->adapter($response);
+        return $response;
     }
 
 
