@@ -93,7 +93,7 @@ class Adapter
      * @param array $args  the parameters will be send to method
      * @return mixed
      */
-    public function __get($name, $args = [])
+    public function __call($name, $args = [])
     {
         return call_user_func_array([$this->adapter, $name], $args);
     }
