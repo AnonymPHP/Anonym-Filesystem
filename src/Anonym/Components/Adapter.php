@@ -86,6 +86,17 @@ class Adapter
         return false;
     }
 
+
+    /**
+     * check the file
+     *
+     * @param string $path
+     * @return bool
+     */
+    public function exists($path = '')
+    {
+        return $this->adapter->has($path);
+    }
     /**
      * call the method from adapter
      *
